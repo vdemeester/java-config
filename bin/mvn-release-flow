@@ -22,18 +22,22 @@ command -v mvn >/dev/null || {
     exit 1
 }
 
+get_release_branch() {
+    echo "release/$1"
+}
+
 create_release_branch() {
     echo -n "Creating release branch... "
-    RELEASE_BRANCH="release/v$1"
+    RELEASE_BRANCH=$(get_release_branch $1)
     echo "$RELEASE_BRANCH"
-    create_branch=$(git checkout -b ${RELEASE_BRANCH} develop)
+    create_branch=$(git checkout -b ${RELEASE_BRANCH} develop 2>&1)
 }
 
 remove_release_branch() {
     echo -n "Removing release branch... "
-    RELEASE_BRANCH="release/v$1"
+    RELEASE_BRANCH=$(get_release_branch $1)
     echo "$RELEASE_BRANCH"
-    remove_branch=$(git branch -D ${RELEASE_BRANCH})
+    remove_branch=$(git branch -D ${RELEASE_BRANCH} 2>&1)
 }
 
 mvn_release() {
@@ -46,17 +50,17 @@ mvn_release() {
 
 merging_to_develop() {
     echo -n "Merging back to develop... "
-    RELEASE_BRANCH="release/v$1"
-    git checkout develop
-    git merge --no-ff ${RELEASE_BRANCH}
+    RELEASE_BRANCH=$(get_release_branch $1)
+    git_co_develop=$(git checkout develop 2>&1)
+    git_merge=$(git merge --no-ff ${RELEASE_BRANCH} 2>&1)
     echo "done"
 }
 
 merging_to_master() {
     echo -n "Merging back to master... "
-    RELEASE_BRANCH="release/v$1"
-    git checkout master
-    git merge --no-ff ${RELEASE_BRANCH}~1
+    RELEASE_BRANCH=$(get_release_branch $1)
+    git_co_master=$(git checkout master 2>&1)
+    git_merge=$(git merge --no-ff ${RELEASE_BRANCH}~1 2>&1)
     echo "done"
 }
 
@@ -64,8 +68,7 @@ merging_to_master() {
 echo -n "Detecting version number... "
 if `git rev-parse 2>/dev/null`; then
     BRANCH_NAME=$(git symbolic-ref -q HEAD)
-    BRANCH_NAME=${branch_name##refs/heads/}
-    BRANCH_NAME=${branch_name:-HEAD}
+    BRANCH_NAME=${BRANCH_NAME##refs/heads/}
     WORKING_DIR=$(git rev-parse --show-toplevel)
     cd $WORKING_DIR
     CURRENT_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }'`

@@ -1,5 +1,6 @@
 *
 !bin
 !bin/mvn-release-flow
+!bin/mvn-update-parent-and-release-flow
 !.gitignore.d
 !.gitignore.d/java-config

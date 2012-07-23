@@ -32,6 +32,7 @@ if `git rev-parse 2>/dev/null`; then
         echo "$STABLE_VERSION"
         git co develop
         mvn versions:update-parent
+        mvn versions:commit
         git ci -a -m "Update parent version (${STABLE_VERSION})"
         mvn-release-flow
         git push --all && git push --tags

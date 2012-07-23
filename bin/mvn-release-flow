@@ -1,0 +1,90 @@
+#!/bin/sh
+#
+# Maven release using gitflow stuff
+# TODO: moar documentation
+
+# 0. verify the precense of needed command (git, mvn, …)
+# 1. get the stable version to come (but let me specify it)
+# 2. do your stuff (create the branch, ...)
+SELF=$(basename $0)
+
+# The most important line in each script
+set -e
+
+# Check for the git command
+command -v git >/dev/null || {
+    echo "$SELF: git command not found." 1>&2
+    exit 1
+}
+# Check for the mvn command (maven)
+command -v mvn >/dev/null || {
+    echo "$SELF: mvn command not found." 1>&2
+    exit 1
+}
+
+create_release_branch() {
+    echo -n "Creating release branch... "
+    RELEASE_BRANCH="release/v$1"
+    create_branch=$(git checkout -b ${RELEASE_BRANCH} develop)
+    echo "$RELEASE_BRANCH"
+}
+
+remove_release_branch() {
+    echo -n "Removing release branch... "
+    RELEASE_BRANCH="release/v$1"
+    remove_branch=$(git branch -D ${RELEASE_BRANCH})
+    echo "$RELEASE_BRANCH"
+}
+
+mvn_release() {
+    echo -n "Using maven-release-plugin... "
+    mvn_release_prepare=$(mvn -B release:prepare)
+    echo -n "'mvn -B release:prepare' "
+    mvn_release_perform=$(mvn release:perform)
+    echo "'mvn release:perform'"
+}
+
+merging_to_develop() {
+    echo -n "Merging back to develop... "
+    RELEASE_BRANCH="release/v$1"
+    git checkout develop
+    git merge --no-ff ${RELEASE_BRANCH}
+    echo "done"
+}
+
+merging_to_master() {
+    echo -n "Merging back to master... "
+    RELEASE_BRANCH="release/v$1"
+    git checkout master
+    git merge --no-ff ${RELEASE_BRANCH}~1
+    echo "done"
+}
+
+# First get the working directory
+echo -n "Detecting version number... "
+if `git rev-parse 2>/dev/null`; then
+    BRANCH_NAME=$(git symbolic-ref -q HEAD)
+    BRANCH_NAME=${branch_name##refs/heads/}
+    BRANCH_NAME=${branch_name:-HEAD}
+    WORKING_DIR=$(git rev-parse --show-toplevel)
+    cd $WORKING_DIR
+    CURRENT_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }'`
+    if test "$CURRENT_VERSION" = "${CURRENT_VERSION%-SNAPSHOT}"; then
+        echo "$SELF: version specified is not a snapshot"
+    else
+        STABLE_VERSION="${CURRENT_VERSION%-SNAPSHOT}"
+        echo "$STABLE_VERSION"
+        create_release_branch $STABLE_VERSION
+        mvn_release
+        merging_to_develop $STABLE_VERSION
+        merging_to_master $STABLE_VERSION
+        remove_release_branch $STABLE_VERSION
+        # Getting back to where we were
+        git checkout $BRANCH_NAME
+    fi
+else
+    echo "$SELF: you are not in a git directory"
+    exit 2
+fi
+
+

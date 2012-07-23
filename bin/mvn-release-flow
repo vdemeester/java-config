@@ -25,15 +25,15 @@ command -v mvn >/dev/null || {
 create_release_branch() {
     echo -n "Creating release branch... "
     RELEASE_BRANCH="release/v$1"
-    create_branch=$(git checkout -b ${RELEASE_BRANCH} develop)
     echo "$RELEASE_BRANCH"
+    create_branch=$(git checkout -b ${RELEASE_BRANCH} develop)
 }
 
 remove_release_branch() {
     echo -n "Removing release branch... "
     RELEASE_BRANCH="release/v$1"
-    remove_branch=$(git branch -D ${RELEASE_BRANCH})
     echo "$RELEASE_BRANCH"
+    remove_branch=$(git branch -D ${RELEASE_BRANCH})
 }
 
 mvn_release() {

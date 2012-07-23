@@ -41,8 +41,3 @@ else
     echo "$SELF: you are not in a git directory"
     exit 2
 fi
-git co develop
-mvn versions:update-parent
-git ci -a -m "Update parent version (2.7)"
-mvn-release-flow
-git push --all && git push --tags

@@ -1,0 +1,24 @@
+#!/bin/sh
+# Quick and dirty mvn wrapper that run only in few conditions.
+#
+# For example, if there is no pom.xml in the current directory, 
+# it won't run (and just print a warning).
+SELF=$(basename $0)
+
+# set -e
+
+command -v mvn >/dev/null || {
+    echo "$SELF: mvn command not found." 1>&2
+    exit 1
+}
+
+POM_FILE="$PWD/pom.xml"
+
+if test -e "$POM_FILE"; then
+    mvn $*
+    ret=$?
+    exit $ret
+else
+    echo "$SELF: no pom.xml in current directory, skipping"
+fi
+

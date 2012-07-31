@@ -1,0 +1,35 @@
+#!/bin/sh
+# Run a mvn goal with mr and a bunch of repository
+# Option are passed (like -i, ...)
+#
+# If no pom.xml is found, mvn is not run and the repo "skipped"
+
+SELF=$(basename $0)
+# The most important line in each script
+set -e
+
+command -v mr >/dev/null || {
+    echo "$SELF: mr command not found." 1>&2
+    exit 1
+}
+
+command -v mvn >/dev/null || {
+    echo "$SELF: mvn command not found." 1>&2
+    exit 1
+}
+
+mvn_goal() {
+    echo "mvn_goal $*"
+}
+
+interactive=0
+if test "$1" = "-i"; then
+    interactive=1
+    shift
+fi
+options=""
+if test $interactive -gt 0; then
+    options="${options} -i"
+fi
+
+mr $options run mvnrun $*

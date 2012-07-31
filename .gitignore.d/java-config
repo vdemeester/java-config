@@ -2,5 +2,7 @@
 !bin
 !bin/mvn-release-flow
 !bin/mvn-update-parent-and-release-flow
+!bin/mvnrun
+!bin/mrmvn
 !.gitignore.d
 !.gitignore.d/java-config

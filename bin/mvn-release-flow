@@ -73,7 +73,7 @@ if `git rev-parse 2>/dev/null`; then
     cd $WORKING_DIR
     CURRENT_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }'`
     if test "$CURRENT_VERSION" = "${CURRENT_VERSION%-SNAPSHOT}"; then
-        echo "$SELF: version specified is not a snapshot"
+        echo "$SELF: version '${CURRENT_VERSION}' specified is not a snapshot"
     else
         STABLE_VERSION="${CURRENT_VERSION%-SNAPSHOT}"
         echo "$STABLE_VERSION"

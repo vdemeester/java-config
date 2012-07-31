@@ -32,4 +32,4 @@ if test $interactive -gt 0; then
     options="${options} -i"
 fi
 
-mr $options run mvnrun $*
+mr $MR_OPTS $options run mvnrun $*

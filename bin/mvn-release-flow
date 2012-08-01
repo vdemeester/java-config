@@ -3,6 +3,7 @@
 # Maven release using gitflow stuff
 # TODO: moar documentation
 # TODO: Add the possibility to specify maven arguments (like MVN_ARGS="-Pprofile1 -Darguments='-Dalt[…]'")
+# TODO: Add a check for verifying if everything is update (branches)
 
 # 0. verify the precense of needed command (git, mvn, …)
 # 1. get the stable version to come (but let me specify it)

@@ -1,0 +1,20 @@
+#!/bin/sh
+# Run eclipse with some cool stuff
+#
+SELF=$(basename $0)
+
+command -v eclipse >/dev/null || {
+    echo "$SELF: eclipse command not found"
+    exit 1
+}
+
+OPTIONS=""
+if test -n $1; then
+    case $1 in
+        work)
+            cd $HOME/src/work/nexgen
+            OPTIONS="-data $HOME/src/work/nexgen"
+esac
+fi
+
+eclipse $OPTIONS

@@ -41,10 +41,13 @@ remove_release_branch() {
 }
 
 mvn_release() {
+    test -n "$MVN_ARGS" && {
+        echo "Maven arguments provided : $MVN_ARGS."
+    }
     echo -n "Using maven-release-plugin... "
-    mvn_release_prepare=$(mvn -B release:prepare)
+    mvn_release_prepare=$(mvn $MVN_ARGS -B release:prepare)
     echo -n "'mvn -B release:prepare' "
-    mvn_release_perform=$(mvn release:perform)
+    mvn_release_perform=$(mvn $MVN_ARGS release:perform)
     echo "'mvn release:perform'"
 }
 

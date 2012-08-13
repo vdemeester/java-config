@@ -2,6 +2,7 @@
 !bin
 !bin/ecl
 !bin/mvn-release-flow
+!bin/mvn-update-parent
 !bin/mvn-update-parent-and-release-flow
 !bin/mvnrun
 !bin/mrmvn

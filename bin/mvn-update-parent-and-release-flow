@@ -18,26 +18,6 @@ command -v mvn >/dev/null || {
     exit 1
 }
 
-echo -n "Detecting version number... "
-if `git rev-parse 2>/dev/null`; then
-    BRANCH_NAME=$(git symbolic-ref -q HEAD)
-    BRANCH_NAME=${BRANCH_NAME##refs/heads/}
-    WORKING_DIR=$(git rev-parse --show-toplevel)
-    cd $WORKING_DIR
-    CURRENT_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | sed -n -e '/^\[.*\]/ !{ /^[0-9]/ { p; q } }'`
-    if test "$CURRENT_VERSION" = "${CURRENT_VERSION%-SNAPSHOT}"; then
-        echo "$SELF: version specified is not a snapshot"
-    else
-        STABLE_VERSION="${CURRENT_VERSION%-SNAPSHOT}"
-        echo "$STABLE_VERSION"
-        git co develop
-        mvn versions:update-parent
-        mvn versions:commit
-        git ci -a -m "Update parent version (${STABLE_VERSION})"
-        mvn-release-flow
-        git push --all && git push --tags
-    fi
-else
-    echo "$SELF: you are not in a git directory"
-    exit 2
-fi
+mvn-update-parent
+mvn-release-flow
+git push --all && git push --tags

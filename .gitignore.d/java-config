@@ -6,5 +6,9 @@
 !bin/mvn-update-parent-and-release-flow
 !bin/mvnrun
 !bin/mrmvn
+!.sh
+!.sh/hook
+!.sh/hook/zshrc.pre
+!.sh/hook/zshrc.pre/mvnw
 !.gitignore.d
 !.gitignore.d/java-config

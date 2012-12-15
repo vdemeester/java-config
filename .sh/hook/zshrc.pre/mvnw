@@ -1,0 +1,21 @@
+# Filename:     .sh/hook/zshrc.pre/mvnw
+# Author:       Vincent Demeester
+# License:      This file is licensed under the GPL v2
+# --------------------------------------------------------------------------- #
+# This file append some stuff to the prompt, related to mvnw
+# --------------------------------------------------------------------------- #
+# {{{ PROMPT -----------------------------------------------------------------
+[[ -z $MVNW_COMMAND ]] || {
+    _vde_add_rprompt_mvnw () {
+        print -n '${PR_CYAN}$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT'
+        print -n '${PR_GREY}(${PR_YELLOW}mvnw:${PR_NO_COLOUR}${MVNW_COMMAND}${PR_GREY})'
+    }
+}
+#[[ -z SCHROOT_SESSION_ID ]] || {
+#    _vde_add_rprompt_chroot () {
+#        print -n '${PR_CYAN}$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT'
+#        print -n '${PR_GREY}(${PR_YELLOW}sch:${PR_NO_COLOUR}${SCHROOT_SESSION_ID}${PR_GREY})'
+#    }
+#}
+# }}}
+# vim:filetype=zsh foldmethod=marker autoindent expandtab shiftwidth=4

@@ -1,0 +1,18 @@
+# Filename:     .sh/hook/shenv.post/mvnw
+# Author:       Vincent Demeester
+# License:      This file is licensed under the GPL v2
+# --------------------------------------------------------------------------- #
+# This file append PATH with mvnw and initialize it, if present
+# --------------------------------------------------------------------------- #
+if test -d $HOME/.mvnw; then
+    # append .mvnw/bin to PATH
+    PATH=$HOME/.mvnw/bin:$PATH
+    command -v mvnw >/dev/null || {
+        echo ".sh/hook/shenv.post/mvnw: mvnw not in PATH, something is wrong…" >&2
+        return
+    }
+    # And initialize it !
+    eval "$(mvnw init -)"
+fi
+# vim:filetype=sh foldmethod=marker autoindent expandtab shiftwidth=4
+

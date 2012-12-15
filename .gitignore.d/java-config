@@ -8,6 +8,8 @@
 !bin/mrmvn
 !.sh
 !.sh/hook
+!.sh/hook/shenv.post
+!.sh/hook/shenv.post/mvnw
 !.sh/hook/zshrc.pre
 !.sh/hook/zshrc.pre/mvnw
 !.gitignore.d

@@ -33,7 +33,7 @@ if `git rev-parse 2>/dev/null`; then
         git co develop
         mvn versions:update-parent
         mvn versions:commit
-        git ci -a -m "Update parent version (${STABLE_VERSION})"
+        git commit -a -m "Update parent version (${STABLE_VERSION})"
     fi
 else
     echo "$SELF: you are not in a git directory"

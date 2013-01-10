@@ -48,6 +48,7 @@ mvn_release() {
     echo "'mvn release:perform'"
 }
 
+# Merging the content of release branch to develop
 merging_to_develop() {
     echo -n "Merging back to develop... "
     RELEASE_BRANCH=$(get_release_branch $1)
@@ -56,11 +57,18 @@ merging_to_develop() {
     echo "done"
 }
 
+# Rewind 1 commit (tag)
+# Merge master in release_branch with ours strategy (we have the sure one)
+# Merge back release_branch to master
 merging_to_master() {
     echo -n "Merging back to master... "
     RELEASE_BRANCH=$(get_release_branch $1)
+    git_co_release_branch=$(git checkout ${RELEASE_BRANCH})
+    git_resete_release_branch=$(git reset --hard HEAD~1)
+    git_merge_ours=$(git merge -s ours master 2>&1)
     git_co_master=$(git checkout master 2>&1)
-    git_merge=$(git merge --no-ff ${RELEASE_BRANCH}~1 2>&1)
+    # We make the assumption "theirs" is the best
+    git_merge=$(git merge --no-ff ${RELEASE_BRANCH} 2>&1)
     echo "done"
 }
 

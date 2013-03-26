@@ -1,0 +1,8 @@
+# Filename:         .sh/hook/shenv.post/java
+# Author:           Vincent Demeester
+# License:          This file is licensed under the GPL v2
+# --------------------------------------------------------------------------- #
+# This file set some java stuff (options & co)
+# --------------------------------------------------------------------------- #
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+# vim:filetype=sh foldmethod=marker autoindent expandtab shiftwidth=4

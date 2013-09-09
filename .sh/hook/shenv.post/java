@@ -6,5 +6,9 @@
 # --------------------------------------------------------------------------- #
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 # CLASSPATH
-export CLASSPATH=$CLASSPATH:.:$HOME/lib/java
+CLASSPATH=.
+for jarfile in $(find $HOME/lib/java/ -type f -iname '*.jar'); do
+    CLASSPATH=$CLASSPATH:$jarfile
+done
+export CLASSPATH=$CLASSPATH
 # vim:filetype=sh foldmethod=marker autoindent expandtab shiftwidth=4

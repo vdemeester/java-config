@@ -11,6 +11,7 @@
 !.sh/hook/shenv.post
 !.sh/hook/shenv.post/mvnw
 !.sh/hook/shenv.post/java
+!.sh/hook/shenv.post/android
 !.sh/hook/zshrc.pre
 !.sh/hook/zshrc.pre/mvnw
 !.gitignore.d

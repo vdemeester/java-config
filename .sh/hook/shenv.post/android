@@ -1,0 +1,5 @@
+# Filename:             .sh/hook/shenv.post/android
+# Author:               Vincent Demeester
+# License:              This file is licensed under the GPL v2
+#
+test -d $HOME/srv/android-sdks && export ANDROID_HOME=/srv/android-sdks/

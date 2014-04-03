@@ -5,6 +5,12 @@
 # This file set some java stuff (options & co)
 # --------------------------------------------------------------------------- #
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+command -v lsb_release >/dev/null && {
+    # FIXME for Ubuntu, test on others OS(es)
+    if test "$(lsb_release -si)" = "Ubuntu"; then
+        export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:/bin/javac::")
+    fi
+}
 # CLASSPATH
 CLASSPATH=.
 for jarfile in $(find $HOME/lib/java/ -type f -iname '*.jar'); do

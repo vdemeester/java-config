@@ -6,6 +6,7 @@
 !bin/mvn-update-parent-and-release-flow
 !bin/mvnrun
 !bin/mrmvn
+!bin/sbt
 !.sh
 !.sh/hook
 !.sh/hook/shenv.post

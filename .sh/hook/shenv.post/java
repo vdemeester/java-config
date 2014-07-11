@@ -4,7 +4,8 @@
 # --------------------------------------------------------------------------- #
 # This file set some java stuff (options & co)
 # --------------------------------------------------------------------------- #
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+#export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
 command -v lsb_release >/dev/null && {
     # FIXME for Ubuntu, test on others OS(es)
     if test "$(lsb_release -si)" = "Ubuntu"; then

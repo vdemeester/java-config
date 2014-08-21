@@ -1,5 +1,6 @@
 *
 !bin
+!bin/lein
 !bin/ecl
 !bin/mvn-release-flow
 !bin/mvn-update-parent

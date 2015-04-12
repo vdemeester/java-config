@@ -1,0 +1,9 @@
+* Java Emacs configuration
+
+  Here are the Java & related (Scala, Clojure maybe) configurations
+  for emacs. For now, there is nothing to see here =:D=.
+
+
+  #+BEGIN_SRC emacs-lisp
+    (message "Java configuration")
+  #+END_SRC

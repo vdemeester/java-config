@@ -16,5 +16,8 @@
 !.sh/hook/shenv.post/android
 !.sh/hook/zshrc.pre
 !.sh/hook/zshrc.pre/mvnw
+!.emacs.d
+!.emacs.d/provided
+!.emacs.d/provided/java-config.org
 !.gitignore.d
 !.gitignore.d/java-config
